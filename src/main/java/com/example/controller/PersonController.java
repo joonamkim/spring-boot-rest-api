@@ -1,13 +1,12 @@
-package controller;
+package com.example.controller;
 import com.example.exception.UnsupportedMathOperationException;
 import com.example.math.SimpleMath;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.converters.numberConverter.convertToDouble;
 import static com.example.converters.numberConverter.isNumeric;
 
 @RestController
-public class MathController {
+public class PersonController {
 
     SimpleMath math = new SimpleMath();
 
