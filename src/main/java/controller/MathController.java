@@ -1,5 +1,6 @@
-package com.example.restwithspringbootudemy;
+package controller;
 import com.example.exception.UnsupportedMathOperationException;
+import com.example.math.SimpleMath;
 import org.springframework.web.bind.annotation.*;
 
 import static com.example.converters.numberConverter.convertToDouble;
@@ -8,15 +9,16 @@ import static com.example.converters.numberConverter.isNumeric;
 @RestController
 public class MathController {
 
+    SimpleMath math = new SimpleMath();
+
     @RequestMapping(value="/sum/{numberOne}/{numberTwo}", method= RequestMethod.GET)
     public Double sum(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) throws Exception {
 
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value");
         }
-        Double sum = convertToDouble(numberOne) + convertToDouble(numberTwo) ;
 
-        return sum;
+        return math.sum(numberOne, numberTwo);
     }
 
     @RequestMapping(value="/subtract/{numberOne}/{numberTwo}", method= RequestMethod.GET)
@@ -25,9 +27,7 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value");
         }
-        Double diff = convertToDouble(numberOne) - convertToDouble(numberTwo) ;
-
-        return diff;
+        return math.subtract(numberOne, numberTwo);
     }
 
     @RequestMapping(value="/multiply/{numberOne}/{numberTwo}", method= RequestMethod.GET)
@@ -36,9 +36,8 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value");
         }
-        Double multiplication = convertToDouble(numberOne) * convertToDouble(numberTwo) ;
 
-        return multiplication;
+        return math.multiply(numberOne, numberTwo);
     }
 
     @RequestMapping(value="/divide/{numberOne}/{numberTwo}", method= RequestMethod.GET)
@@ -47,9 +46,7 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value");
         }
-        Double division = convertToDouble(numberOne) / convertToDouble(numberTwo) ;
-
-        return division;
+        return divide(numberOne, numberTwo);
     }
 
     @RequestMapping(value="/average/{numberOne}/{numberTwo}", method= RequestMethod.GET)
@@ -58,20 +55,17 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value");
         }
-        Double average = (convertToDouble(numberOne) + convertToDouble(numberTwo)) / 2 ;
 
-        return average;
+        return math.average(numberOne, numberTwo);
     }
 
     @RequestMapping(value="/squareroot/{numberOne}", method= RequestMethod.GET)
-    public Double squareroot(@PathVariable("numberOne") String numberOne) throws Exception {
+    public Double squareroot(@PathVariable("numberOne") String number) throws Exception {
 
-        if(!isNumeric(numberOne)) {
+        if(!isNumeric(number)) {
             throw new UnsupportedMathOperationException("Please set a numeric value");
         }
-        Double sqrt = Math.sqrt(convertToDouble(numberOne));
-
-        return sqrt;
+        return math.squareRoot(number);
     }
 
 
